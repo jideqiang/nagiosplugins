@@ -4,10 +4,7 @@
 from optparse import OptionParser
 import sys
 
-OK=0
-WARNING=1
-CRICITCAL=2
-UNKNOWN=3
+OK,WARNING,CRICITCAL,UNKNOWN=0,1,2,3
 
 def opt():
     parser = OptionParser(usage="usage: %prog -w WARNING -c CRITICAL")
