@@ -1,3 +1,4 @@
+                   
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
@@ -26,6 +27,11 @@ def convertUnit(s):
     else:
         return int(s)
 
+def converFreeMemory(num):
+    unit = {'t':2**40,'g':2**30,'m':2**20,'k':2**10,'b':1}
+	for i in unit:
+		if 1024*unit[i]>num>unit[i]:
+			return "%s%s" % (num/unit[i],i)
 
 def getFreeMemory():
     with open('/proc/meminfo', 'r') as fd:
@@ -39,18 +45,19 @@ def main():
     w = convertUnit(opts.warning)
     c = convertUnit(opts.critical)
     free_mem = getFreeMemory()
+    freemem=converFreeMemory(free_mem)
     if w >= free_mem > c:
-        print "WARNING, free:%s MB" % free_mem
+        print "WARNING, free:%s" % freemem
         sys.exit(WARNING)
     elif free_mem <= c:
-        print "CRICITCAL, free:%s MB" % free_mem
+        print "CRICITCAL, free:%s" % freemem
         sys.exit(CRICITCAL)
     elif free_mem > w:
-        print "OK, free:%s MB" % free_mem
+        print "OK, free:%s" % freemem
         sys.exit(OK)
     else:
-        print "UNKNOWN, free:%s MB" % free_mem
+        print "UNKNOWN, free:%s" % freemem
         sys.exit(UNKNOWN)
 
 if __name__=="__main__":
-    main()                      
+    main()
