@@ -6,6 +6,7 @@ import sys
 
 OK,WARNING,CRICITCAL,UNKNOWN=0,1,2,3
 
+
 def opt():
     parser = OptionParser(usage="usage: %prog -w WARNING -c CRITICAL")
     parser.add_option("-c", default='100M', action="store", type="string", dest="critical")
